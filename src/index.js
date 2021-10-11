@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Board from './components/Board.js'
+import './index.css'
 
 class Game extends React.Component{
 
@@ -9,7 +10,6 @@ class Game extends React.Component{
         super(props);
 
         this.state={
-
             squares : Array(9).fill(null),
             nxtSymb : "X",
             who: "none"
@@ -18,71 +18,61 @@ class Game extends React.Component{
         this.handleClick = this.handleClick.bind(this);
     }
 
-    handleClick (index){
 
-        if (this.state.who != 'none')
-            return;
+    solving (index, whom){
 
         const squares = this.state.squares;
-        if (squares[index]!== null){
-            return;}
+        if (squares[index]!== null)
+            return;
 
-        var x = 0;
-        var o = 0;
-
-        
-
-
-
-        
+        var meter = 0;
         squares[index] = this.state.nxtSymb;
 
-        var xm = 0;
-        var om = 0;
-
-        for (var i = 0; i < squares.length; i ++){
-
-
-
-
-            xm |= squares[i] === "X"? (2 ** i): 0;
-            om |= squares[i] === "O"? (2 ** i): 0;
-
-        }
-
-        console.log(`xmeter ${xm}, ometer ${om}`);
+        for (var i = 0; i < squares.length; i ++)
+            meter |= squares[i] === whom ? (2 ** i): 0;
 
         const strategies = [7, 56, 448, 73, 146, 292, 273, 84];
 
         for (var s in strategies){
-            if ((strategies[s] & xm) === strategies[s]){
-                this.setState({ who: "X"});
+            if ((strategies[s] & meter) === strategies[s]){
+                this.setState({ who: whom});
+
+                let strat = strategies[s];
+
+                for(var j = 0; strat !== 1; strat /= 2, j++ ){
+                    ;
+                    //finding indices of winning strategy
+
+
+                }
                 
                 return;
             }
         }
-
-        for (var s in strategies){
-            if ((strategies[s] & om) === strategies[s]){
-                this.setState({ who: "O"});
-                
-                return;
-            }
-        }
-
 
         this.setState({squares: squares, 
-                        nxtSymb: this.state.nxtSymb === "X"? "O":"X"});
+                      nxtSymb: this.state.nxtSymb === "X"? "O":"X"});        
 
+         }
+
+    handleClick (index){
+
+        if (this.state.who != 'none')
+            return;
+  
+        this.solving(index, "X");
+        this.solving(index, "O");
 
     }
 
     render(){
         return<>
         <Board squares={this.state.squares} handleClick={this.handleClick}></Board>
-
-        <div>Wins {this.state.who}</div>
-
+        <div id="who">
+            <p>
+            Wins <b> {this.state.who} </b>
+            </p>
+        </div>
          </>
     }
 }

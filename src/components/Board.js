@@ -11,17 +11,12 @@ class Board extends React.Component{
 
     render(){
 
-        const row = Array(3).fill(null);
-        const col = Array(3).fill(null);
 
+        return this.props.squares.map((val, i) => {return (<div className="tile" key={i}>
+            <Square value={this.props.squares[i]} handleSquareClick={()=>this.props.handleClick(i)}></Square>
+            {(i+1)%3 === 0 ? <br/> : <></>}
+        </div>)});
 
-        return (<>
-            {row.map((val, i) => {return <Square value={this.props.squares[i]} handleSquareClick={()=>this.props.handleClick(i)} ></Square>})}<br/>
-            {row.map((val, i) => {return <Square value={this.props.squares[i+3]} handleSquareClick={()=>this.props.handleClick(i + 3)}></Square>})}<br/>
-            {row.map((val, i) => {return <Square value={this.props.squares[i+6]} handleSquareClick={()=>this.props.handleClick(i + 6)}></Square>})} 
-            
-        
-        </>)
     }
 
 

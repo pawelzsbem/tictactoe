@@ -1,0 +1,22 @@
+.tile{
+    display: inline;
+    width: 80px;
+    height: 80px;
+    background-color: slategray;
+    color: azure;
+    font-size: xx-large;
+    font-weight: bold;
+}
+
+.tile button{
+    border: 2px solid black;
+    border-radius: 5px;
+
+}
+
+#who{
+
+    font-size: xx-large;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    
+}
